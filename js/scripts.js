@@ -1,61 +1,57 @@
 var tri1 = 0;
 var tri2 = 0;
 var tri3 = 0;
-function calctriangle()
-{
-  console.log(tri1 + tri2 + tri3);
-  tri1  = parseInt($("#tri1").val());
-  tri2  = parseInt($("#tri2").val());
-  tri3  = parseInt($("#tri3").val());
-  var notatriangle;
-  notatriangle = false;
 
   var isosc = false;
   var scal = false;
   var equi = false;
-  notri();
-  if(notatriangle == false)
+  var notatriangle;
+function calctriangle()
 {
+  notri();
+
+  if(!notatriangle)
+{
+
   iso();
   equil();
   scalene();
 }
-if(notatriangle == true)
+if(notatriangle)
 {
+
 }
 
 }
 
 $(document).ready(function(){
+  $("#calcbutton").click(function(){
 
+    tri1  = parseInt($("#tri1").val());
+    tri2  = parseInt($("#tri2").val());
+    tri3  = parseInt($("#tri3").val());
+    calctriangle();
+
+    });
   });
 
   function notri()
   {
 
-    notatriangle = (tri1 + tri2) < tri3;
-    notatriangle = notatriangle || tri1 > (tri2 + tri3);
+    notatriangle = (tri1 + tri2) <= tri3;
+    notatriangle = notatriangle || tri1 >= (tri2 + tri3);
 
-    console.log("test1");
-    console.log(notatriangle);
-
-    notatriangle = notatriangle || tri2 > (tri1 + tri3);
-
-    console.log("test2");
-    console.log(notatriangle);
+    notatriangle = notatriangle || tri2 >= (tri1 + tri3);
 
     notatriangle = notatriangle || (tri1 == 0||tri2 == 0 || tri3 == 0);
-
-    console.log(notatriangle);
-    console.log("test3");
-    console.log(notatriangle);
 
     notatriangle = notatriangle || (tri1  == NaN || tri2  == NaN || tri3  == NaN);
 
     console.log("test4");
     console.log(notatriangle);
-    if( notatriangle == true)
+    if(notatriangle)
     {
+          console.log(notatriangle);
       tritype = "not a triangle";
         $(".triangle").html(tritype);
     }
@@ -64,15 +60,16 @@ $(document).ready(function(){
   function iso()
   {
     isosc = tri1 == tri2 && tri1 != tri3;
-        console.log(isosc);
+
     isosc = isosc || tri1 == tri3 && tri1 != tri2;
-            console.log(isosc);
+            console.log( tri1 + " " + tri2 + " " + tri3);
+
     isosc = isosc || tri2 == tri3 && tri2 != tri1;
-            console.log(isosc);
+
     isosc = isosc || tri1 == tri2 && tri2 != tri3;
-            console.log(isosc);
+
     console.log("isosceles" + isosc);
-    if (isosc == true)
+    if (isosc  )
     {
                     console.log("isosceles");
       tritype = "isosc";
@@ -83,10 +80,10 @@ $(document).ready(function(){
   function equil()
   {
 
-    equi = tri1 == tri2 == tri3;
-
+    equi = tri1 == tri2 && tri1 == tri3;
+              console.log(equi);
     console.log(equi);
-    if(equi == true)
+    if(equi)
     {
               console.log("equilateral");
       tritype = "equilateral";
@@ -99,7 +96,7 @@ $(document).ready(function(){
 
     scal = tri1 !== tri2 && tri1 != tri3 && tri2 != tri3;
     console.log(scal);
-    if(scal == true)
+    if(scal  )
     {
       tritype = "scalene";
         $(".triangle").html(tritype);
